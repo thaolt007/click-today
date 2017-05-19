@@ -1,0 +1,13 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.container {
+	width: 970px;
+}
+.success {
+	margin-bottom: 5px;
+}
+.btn-info {
+	margin-bottom: 3px;
+}
