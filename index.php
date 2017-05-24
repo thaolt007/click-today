@@ -15,9 +15,10 @@ require 'process.php';
 <body>
     <div class="container">
         <div class="row success col-md-12">
-            <div class="col-md-4"></div>
-            <button type="button" class="btn btn-success btn-lg submit-but col-md-4">Ghi danh</button>
-            <div class="col-md-4"></div>
+            <div class="col-md-3"></div>
+            <button type="button" class="btn btn-success btn-lg submit-but col-md-3">Ghi danh</button>
+            <button type="button" class="btn btn-success btn-lg reset-but col-md-3">Đặt lại</button>
+            <div class="col-md-3"></div>
         </div>
         <!-- End .success -->
         <div class="row content col-md-12">
@@ -26,6 +27,7 @@ require 'process.php';
     </div>
     <!--End .container-->
     <script>
+        // Submit click
         $('.submit-but').click(function (e) {
             e.preventDefault(); //loai bo cac hanh dong mac dinh
             
@@ -43,7 +45,7 @@ require 'process.php';
                     if (data.code == 1) {
                         console.log(data);
                         $('.content').prepend(
-                            '<button type="button" class="btn btn-info col-md-4">' +
+                            '<button type="button" class="btn btn-info col-md-3">' +
                                 '<p>' +data.day+ '</p>' +
                             '</button>'
                         );
@@ -55,6 +57,35 @@ require 'process.php';
 
                 }
             });
+        });
+
+        // Reset click - listday.txt empty
+        $('.reset-but').click(function (e) {
+            e.preventDefault(); //loai bo cac hanh dong mac dinh
+            var ready = confirm("Bạn có chắc muốn đặt lại.")
+            console.log(ready);
+            if (ready) {
+                $.ajax({
+                    type: 'POST', // method
+                    url: './process.php', // action
+                    dataType: 'JSON', // kieu du lieu nhan ve
+                    data: {// data gui cung request
+                        reset: ''
+                    },
+                    success: function (data) {// thanh cong status http = 200
+                        // xu ly du lieu tra ve
+                        // in ket qua sang tab console
+                        // console.log(data);
+                        if (data.code == 1) {
+                            console.log(data.success);
+                            $('.content').slideUp();
+                        }
+                        else {
+                            console.log(data.error);
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
